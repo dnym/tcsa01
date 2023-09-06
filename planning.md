@@ -105,3 +105,16 @@ Press enter to continue.
 - [x] Reading console height
 - [x] Clearing console
 - [x] Deploying C# console app
+
+## Data Structures
+- Round
+  - Operation (enum?)
+  - Input parameters A and B (int)
+  - Expected answer (int)
+  - Given answer (int)
+- Game
+  - Time started (DateTime)
+  - Game type/operation (enum?)
+  - List of rounds (List\<Round\>)
+- History
+  - List of games (List\<Game\>)
