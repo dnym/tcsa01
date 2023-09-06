@@ -29,3 +29,22 @@
   - >*Yes, let's use pre-determined number ranges for the five difficulty levels: -10 to 10, -25 to 25, -50 to 50, -75 to 75, -100 to 100. These ranges offer increasing challenges.*
 - Does "Add a timer to track how long the user takes to finish the game" mean counting the time to play a game (consisting of a number of rounds), or counting the time the user spent in the application (and for example printing the time when quitting the application)?
   - >*Let's count the time to play a game, specifically measuring the time taken to complete each round within the game. This adds an element of challenge and motivation for the players.*
+
+### More Questions & Decisions
+- What if the user enters invalid input (such as letters)? Would it count as the wrong answer, or should the question be restated after a warning?
+- Should the user be able to cancel a running game (mid-round)? If so, should it be shown in the history?
+- What if there are too many games/rounds in the history to show? Should it be capped, or should the user be expected to scroll? Or should we print a number of lines and "press enter to view more"?
+
+## MVP Functionality
+
+### Necessary Functionality
+- Menu (showing & taking input)
+- Game round (showing & taking input)
+- Storing history
+- Showing history
+
+### Possible Later Functionality
+- Random game mode
+- Settings: difficulty
+- Settings: number of rounds
+- Game round timer (taking time & storing & showing in history)
