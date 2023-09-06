@@ -35,6 +35,8 @@
   - >*If the user enters invalid input, give a warning and restate the question to allow them to try again. Let's make the experience user-friendly.*
 - Should the user be able to cancel a running game (mid-round)? If so, should it be shown in the history?
   - >*Yes, users can cancel a running game mid-round. It's not necessary to show canceled games in the history to keep it focused on completed games.*
+  - How would a user cancel?
+    - By entering `q` instead of a number.
 - What if there are too many games/rounds in the history to show? Should it be capped, or should the user be expected to scroll? Or should we print a number of lines and "press enter to view more"?
   - >*Let's keep it user-friendly. Display a certain number of lines and add "press enter to view more" for easy navigation in the history.*
 
@@ -51,3 +53,46 @@
 - Settings: difficulty
 - Settings: number of rounds
 - Game round timer (taking time & storing & showing in history)
+
+## User Interface
+Menu like:
+```text
+Math Game
+=========
+
+1. Play [A]ddition
+2. Play [S]ubtraction
+3. Play [M]ultiplication
+4. Play [D]ivision
+5. Show [H]istory
+6. [Q]uit
+
+Press a number or letter key to choose.
+```
+
+Game like:
+```text
+Addition
+========
+
+Round 2/5: What is 15+13? 29
+
+The correct answer was 28.
+Press enter to continue
+or q to quit to menu.
+```
+
+History like:
+```text
+History
+========
+
+[13/1 14:15] Addition (4/5 correct)
+  1) 7+7? Got 14.
+  2) 15+13? Got 29, expected 28.
+  3) 9+7? Got 16.
+  4) 13+2? Got 15.
+  5) 15+10? Got 25.
+
+Press enter to continue.
+```
