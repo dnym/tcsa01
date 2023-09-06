@@ -32,8 +32,11 @@
 
 ### More Questions & Decisions
 - What if the user enters invalid input (such as letters)? Would it count as the wrong answer, or should the question be restated after a warning?
+  - >*If the user enters invalid input, give a warning and restate the question to allow them to try again. Let's make the experience user-friendly.*
 - Should the user be able to cancel a running game (mid-round)? If so, should it be shown in the history?
+  - >*Yes, users can cancel a running game mid-round. It's not necessary to show canceled games in the history to keep it focused on completed games.*
 - What if there are too many games/rounds in the history to show? Should it be capped, or should the user be expected to scroll? Or should we print a number of lines and "press enter to view more"?
+  - >*Let's keep it user-friendly. Display a certain number of lines and add "press enter to view more" for easy navigation in the history.*
 
 ## MVP Functionality
 
