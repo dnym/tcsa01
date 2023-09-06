@@ -1,15 +1,31 @@
 # Planning
 
-## Questions
+## Clarifications
+*Quoted answers come from [ChatGPT](https://chat.openai.com/) who plays the role of external stakeholder (i.e. customer).*
+
 - Who is this for?
+  - >*This app is for anyone who wants to practice math skills and enjoy a fun, educational game.*
 - Console app with in-memory storage only?
+  - >*Yes, a console app with in-memory storage is sufficient. No need for database storage.*
 - Should all operation inputs and outputs be integers only?
+  - >*Yes, all operation inputs and outputs should be integers only. No fractions or decimals in the game.*
 - What's a reasonable default range for outputs? [0, 100] for addition and multiplication? [-100, 100] for subtraction, i.e. allow negative results? Or perhaps even [-100, 100] for all operations?
+  - >*Let's go with [-100, 100] for all operations, including addition and multiplication, to add variety and challenge for players.*
 - Should trivial cases, like `10+0`, be excluded? If so, how do we determine what's trivial? (Dividends in the range [0, 100] implies trivial divisions are OK.)
-- Should the user get the correct answer immediately, or should the game go immediately to the next round?
+  - >*Trivial cases like `10+0` should be included to ensure a wide range of questions. No need to exclude them; they can be a part of the game.*
+- Should the user get to see the correct answer and "press enter to continue", or should the game immediately clear the screen and go to the next round?
+  - >*Let's make it more engaging. Show the correct answer and let the user press enter to continue to the next round.*
 - How many rounds in a game by default? 5?
+  - >*Five rounds as the default sounds reasonable. It provides a decent challenge without being too long.*
 - How should the menu work? Choose a game or history by pressing numbers/letters? Or arrow keys and enter?
+  - >*Let's keep it simple. Users can choose options by pressing numbers or letters corresponding to the menu items, followed by Enter.*
 - Menu items: Addition, subtraction, multiplication, division, history, quit?
+  - Yes.
 - How should previous games be visualized in the history?
-- Should levels of difficulty be implemented using discrete levels e.g. difficulty 1 to 5? Or fully by user e.g. setting allowed range of output and/or max time per round?
+  - >*Display each round with the question, given answer, and correct answer, along with final statistics like the number of correct answers and time taken. This will help users track their progress and performance.*
+- Should levels of difficulty be implemented using discrete levels e.g. difficulty 1 to 5? Or fully by user e.g. setting allowed range of output and/or (if implemented) max time per round?
+  - >*Let's offer discrete levels of difficulty from 1 to 5 based on allowed output range. This simplifies the user experience and provides clear progression.*
+  - So pre-determined number ranges? What should the five ranges be?
+  - >*Yes, let's use pre-determined number ranges for the five difficulty levels: -10 to 10, -25 to 25, -50 to 50, -75 to 75, -100 to 100. These ranges offer increasing challenges.*
 - Does "Add a timer to track how long the user takes to finish the game" mean counting the time to play a game (consisting of a number of rounds), or counting the time the user spent in the application (and for example printing the time when quitting the application)?
+  - >*Let's count the time to play a game, specifically measuring the time taken to complete each round within the game. This adds an element of challenge and motivation for the players.*
