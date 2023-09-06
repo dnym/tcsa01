@@ -96,3 +96,12 @@ History
 
 Press enter to continue.
 ```
+
+## Logic Checklist
+- [x] Making C# console app
+- [x] Showing console text
+- [x] Taking & validating console input
+- [x] Generating numbers
+- [x] Reading console height
+- [x] Clearing console
+- [x] Deploying C# console app
