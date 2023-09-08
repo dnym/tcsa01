@@ -24,14 +24,16 @@ internal class Addition : IOperation
     /// </summary>
     public Tuple<int, int> DecomposeResult(Random rnd, int requiredResult, Tuple<int, int> domainA, Tuple<int, int> domainB)
     {
-        if (requiredResult < domainA.Item1 + domainB.Item1 || domainA.Item2 + domainB.Item2 < requiredResult)
+        var (minA, maxA) = domainA;
+        var (minB, maxB) = domainB;
+        if (requiredResult < minA + minB || maxA + maxB < requiredResult)
         {
             throw new ArgumentException("The required result cannot be decomposed into two numbers within the given domains.");
         }
 
         // Find A within a "subdomain".
-        int minA = Math.Max(domainA.Item1, requiredResult - domainB.Item2);
-        int maxA = Math.Min(domainA.Item2, requiredResult - domainB.Item1);
+        minA = Math.Max(minA, requiredResult - maxB);
+        maxA = Math.Min(maxA, requiredResult - minB);
         int a = rnd.Next(minA, maxA + 1);
 
         int b = requiredResult - a;
