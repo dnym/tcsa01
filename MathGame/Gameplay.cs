@@ -14,6 +14,8 @@ internal class Gameplay
     private readonly RoundGenerator _roundGenerator = new(new Tuple<int, int>(-100, 100), new Tuple<int, int>(-100, 100), new Tuple<int, int>(-100, 100));
     private readonly IList<Game> _games = new List<Game>();
     private readonly IOperation _addition = new Addition();
+    private readonly IOperation _subtraction = new Subtraction();
+    private readonly IOperation _multiplication = new Multiplication();
 
     public void MainMenu()
     {
@@ -24,6 +26,8 @@ internal class Gameplay
 =========
 
 1. Play [A]ddition
+2. Play [S]ubtraction
+3. Play [M]ultiplication
 5. Show [H]istory
 6. [Q]uit
 
@@ -35,6 +39,16 @@ Press a number or letter key to choose.");
                 case ConsoleKey.NumPad1:
                 case ConsoleKey.A:
                     Play(_addition);
+                    break;
+                case ConsoleKey.D2:
+                case ConsoleKey.NumPad2:
+                case ConsoleKey.S:
+                    Play(_subtraction);
+                    break;
+                case ConsoleKey.D3:
+                case ConsoleKey.NumPad3:
+                case ConsoleKey.M:
+                    Play(_multiplication);
                     break;
                 case ConsoleKey.D5:
                 case ConsoleKey.NumPad5:
