@@ -68,8 +68,12 @@ Press a number or letter key to choose.");
                         Console.WriteLine("\nGame over! You scored {0} out of {1}.",
                             game.Rounds.Count(r => r.GivenAnswer == r.Operation.Calculate(r.FirstNumber, r.SecondNumber)),
                             game.Rounds.Count);
+                        Console.WriteLine("\nPress any key to continue.");
                     }
-                    Console.WriteLine("\nPress any key to continue\nor q to quit to menu.");
+                    else
+                    {
+                        Console.WriteLine("\nPress any key to continue\nor q to quit to menu.");
+                    }
                     var key = Console.ReadKey(true);
                     if (key.Key == ConsoleKey.Q)
                     {
