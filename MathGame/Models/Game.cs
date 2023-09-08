@@ -16,5 +16,5 @@ internal class Game
 
     public DateTime StartTime { get; }
     public IOperation Operation { get; }
-    public IEnumerable<Round> Rounds { get; } = new List<Round>();
+    public IList<Round> Rounds { get; } = new List<Round>();
 }

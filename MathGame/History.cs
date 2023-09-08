@@ -9,5 +9,5 @@ namespace MathGame;
 
 internal static class History
 {
-    public static IEnumerable<Game> Games { get; } = new List<Game>();
+    public static IList<Game> Games { get; } = new List<Game>();
 }
