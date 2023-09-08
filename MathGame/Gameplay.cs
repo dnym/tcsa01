@@ -31,14 +31,17 @@ Press a number or letter key to choose.");
             switch (selection.Key)
             {
                 case ConsoleKey.D1:
+                case ConsoleKey.NumPad1:
                 case ConsoleKey.A:
                     Play(_addition);
                     break;
                 case ConsoleKey.D5:
+                case ConsoleKey.NumPad5:
                 case ConsoleKey.H:
                     ShowHistory();
                     break;
                 case ConsoleKey.D6:
+                case ConsoleKey.NumPad6:
                 case ConsoleKey.Q:
                     return;
             }
