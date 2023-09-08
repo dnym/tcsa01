@@ -123,12 +123,9 @@ Press a number or letter key to choose.");
                     Console.WriteLine("  {0}) {1}?\tGot {2}, expected {3}.", j+1, formatted, round.GivenAnswer, expectedAnswer);
                 }
             }
-            if (i < History.Games.Count - 1)
-            {
-                Console.WriteLine();
-            }
+            Console.WriteLine();
         }
-        Console.WriteLine("\nPress any key to continue.");
+        Console.WriteLine("Press any key to continue.");
         Console.ReadKey(true);
     }
 }
