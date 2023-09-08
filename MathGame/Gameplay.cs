@@ -23,6 +23,7 @@ internal class Gameplay
 =========
 
 1. Play [A]ddition
+5. Show [H]istory
 6. [Q]uit
 
 Press a number or letter key to choose.");
@@ -32,6 +33,10 @@ Press a number or letter key to choose.");
                 case ConsoleKey.D1:
                 case ConsoleKey.A:
                     Play(_addition);
+                    break;
+                case ConsoleKey.D5:
+                case ConsoleKey.H:
+                    ShowHistory();
                     break;
                 case ConsoleKey.D6:
                 case ConsoleKey.Q:
@@ -89,5 +94,41 @@ Press a number or letter key to choose.");
             }
         }
         History.Games.Add(game);
+    }
+
+    private void ShowHistory()
+    {
+        Console.Clear();
+        Console.WriteLine("History\n=======\n");
+        for (int i = 0; i < History.Games.Count; i++)
+        {
+            var game = History.Games[i];
+            var time = game.StartTime.ToString("g");
+            int correctRounds = game.Rounds.Count(r => r.GivenAnswer == r.Operation.Calculate(r.FirstNumber, r.SecondNumber));
+            int totalRounds = game.Rounds.Count;
+            Console.WriteLine("[{0}] {1} ({2}/{3} correct)", time, game.Operation.DisplayName, correctRounds, totalRounds);
+            for (int j = 0; j < game.Rounds.Count; j++)
+            {
+                var round = game.Rounds[j];
+                var a = round.FirstNumber;
+                var b = round.SecondNumber;
+                var expectedAnswer = round.Operation.Calculate(round.FirstNumber, round.SecondNumber);
+                var formatted = string.Format(round.Operation.DisplayPattern, a, b);
+                if (round.GivenAnswer == expectedAnswer)
+                {
+                    Console.WriteLine("  {0}) {1}?\tGot {2}.", j+1, formatted, round.GivenAnswer);
+                }
+                else
+                {
+                    Console.WriteLine("  {0}) {1}?\tGot {2}, expected {3}.", j+1, formatted, round.GivenAnswer, expectedAnswer);
+                }
+            }
+            if (i < History.Games.Count - 1)
+            {
+                Console.WriteLine();
+            }
+        }
+        Console.WriteLine("\nPress any key to continue.");
+        Console.ReadKey(true);
     }
 }
