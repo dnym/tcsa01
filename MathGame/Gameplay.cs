@@ -12,6 +12,7 @@ internal class Gameplay
 {
     private const int _roundsPerGame = 5;
     private readonly RoundGenerator _roundGenerator = new(new Tuple<int, int>(-100, 100), new Tuple<int, int>(-100, 100), new Tuple<int, int>(-100, 100));
+    private readonly IList<Game> _games = new List<Game>();
     private readonly IOperation _addition = new Addition();
 
     public void MainMenu()
@@ -96,16 +97,16 @@ Press a number or letter key to choose.");
                 }
             }
         }
-        History.Games.Add(game);
+        _games.Add(game);
     }
 
     private void ShowHistory()
     {
         Console.Clear();
         Console.WriteLine("History\n=======\n");
-        for (int i = 0; i < History.Games.Count; i++)
+        for (int i = 0; i < _games.Count; i++)
         {
-            var game = History.Games[i];
+            var game = _games[i];
             var time = game.StartTime.ToString("g");
             int correctRounds = game.Rounds.Count(r => r.GivenAnswer == r.Operation.Calculate(r.FirstNumber, r.SecondNumber));
             int totalRounds = game.Rounds.Count;
