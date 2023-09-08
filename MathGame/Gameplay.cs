@@ -21,6 +21,7 @@ internal class Gameplay
             Console.Clear();
             Console.WriteLine(@"Math Game
 =========
+
 1. Play [A]ddition
 6. [Q]uit
 
