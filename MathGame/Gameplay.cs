@@ -124,7 +124,10 @@ Press a number or letter key to choose.");
                 }
                 else
                 {
-                    Console.Clear();
+                    if (string.Equals(response?.Trim(), "q", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return;
+                    }
                     warning = "\n\nPlease enter a number\nor q to quit to menu.";
                     response = null;
                 }
