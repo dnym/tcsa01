@@ -69,15 +69,33 @@ Press a number or letter key to choose.");
         for (int i = 0; i < _roundsPerGame; i++)
         {
             string header = operation.DisplayName + "\n" + new string('=', operation.DisplayName.Length);
-            Console.Clear();
             var (a, b, result) = _roundGenerator.GenerateQuestion(operation);
             string? response = null;
+            string warning = "";
             while (response == null)
             {
+                Console.Clear();
                 Console.Write("{0}\n\nRound {1}/{2}: What is {3}? ", header, i+1, _roundsPerGame, string.Format(operation.DisplayPattern, a, b));
+                if (warning != "")
+                {
+                    var currentCursorHorizontalPosition = Console.CursorLeft;
+                    var currentCursorVerticalPosition = Console.CursorTop;
+                    Console.WriteLine(warning);
+                    Console.SetCursorPosition(currentCursorHorizontalPosition, currentCursorVerticalPosition);
+                }
                 response = Console.ReadLine();
                 if (int.TryParse(response, out int responseInt))
                 {
+                    warning = "";
+                    {
+                        // This is a hack to clear the the warning.
+                        var currentCursorHorizontalPosition = Console.CursorLeft;
+                        var currentCursorVerticalPosition = Console.CursorTop;
+                        Console.WriteLine(new string(' ', Console.WindowWidth));
+                        Console.WriteLine(new string(' ', Console.WindowWidth));
+                        Console.WriteLine(new string(' ', Console.WindowWidth));
+                        Console.SetCursorPosition(currentCursorHorizontalPosition, currentCursorVerticalPosition);
+                    }
                     if (responseInt == result)
                     {
                         Console.WriteLine("\nCorrect!");
@@ -107,6 +125,7 @@ Press a number or letter key to choose.");
                 else
                 {
                     Console.Clear();
+                    warning = "\n\nPlease enter a number\nor q to quit to menu.";
                     response = null;
                 }
             }
