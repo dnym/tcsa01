@@ -16,6 +16,7 @@ internal class Gameplay
     private readonly IOperation _addition = new Addition();
     private readonly IOperation _subtraction = new Subtraction();
     private readonly IOperation _multiplication = new Multiplication();
+    private readonly IOperation _division = new Division();
 
     public void MainMenu()
     {
@@ -28,6 +29,7 @@ internal class Gameplay
 1. Play [A]ddition
 2. Play [S]ubtraction
 3. Play [M]ultiplication
+4. Play [D]ivision
 5. Show [H]istory
 6. [Q]uit
 
@@ -49,6 +51,11 @@ Press a number or letter key to choose.");
                 case ConsoleKey.NumPad3:
                 case ConsoleKey.M:
                     Play(_multiplication);
+                    break;
+                case ConsoleKey.D4:
+                case ConsoleKey.NumPad4:
+                case ConsoleKey.D:
+                    Play(_division);
                     break;
                 case ConsoleKey.D5:
                 case ConsoleKey.NumPad5:

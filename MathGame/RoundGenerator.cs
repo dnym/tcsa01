@@ -23,8 +23,18 @@ internal class RoundGenerator
 
     public Tuple<int, int, int> GenerateQuestion(IOperation operation)
     {
-        int result = _random.Next(_range.Item1, _range.Item2 + 1);
-        var (a, b) = operation.DecomposeResult(_random, result, _domainA, _domainB);
-        return new Tuple<int, int, int>(a, b, result);
+        while (true)
+        {
+            try
+            {
+                int result = _random.Next(_range.Item1, _range.Item2 + 1);
+                var (a, b) = operation.DecomposeResult(_random, result, _domainA, _domainB);
+                return new Tuple<int, int, int>(a, b, result);
+            }
+            catch (ArgumentException)
+            {
+                // Ignore.
+            }
+        }
     }
 }
