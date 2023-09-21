@@ -10,7 +10,6 @@ namespace MathGame;
 
 internal class Gameplay
 {
-    private const int _roundsPerGame = 5;
     private readonly RoundGenerator _roundGenerator = new(new Tuple<int, int>(-100, 101), new Tuple<int, int>(-100, 101), new Tuple<int, int>(-100, 101));
     private readonly IList<Game> _games = new List<Game>();
     private readonly IOperation _addition = new Addition();
@@ -18,6 +17,7 @@ internal class Gameplay
     private readonly IOperation _multiplication = new Multiplication();
     private readonly IOperation _division = new Division();
     private readonly IOperation _random = new RandomMode();
+    private int _roundsPerGame = 5;
 
     public void MainMenu()
     {
@@ -33,7 +33,8 @@ internal class Gameplay
 4. Play [D]ivision
 5. Play a [R]andom Game
 6. Show [H]istory
-7. [Q]uit
+7. [C]hange Settings
+8. [Q]uit
 
 Press a number or letter key to choose.");
             var selection = Console.ReadKey(true);
@@ -71,6 +72,11 @@ Press a number or letter key to choose.");
                     break;
                 case ConsoleKey.D7:
                 case ConsoleKey.NumPad7:
+                case ConsoleKey.C:
+                    ShowSettings();
+                    break;
+                case ConsoleKey.D8:
+                case ConsoleKey.NumPad8:
                 case ConsoleKey.Q:
                     return;
             }
@@ -217,5 +223,54 @@ Press a number or letter key to choose.");
             }
             Console.ReadKey(true);
         } while (lines.Count > 0);
+    }
+
+    private void ShowSettings()
+    {
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine(@$"Settings
+========
+
+1. Change the Number of [R]ounds per Game (Currently: {_roundsPerGame})
+2. [Q]uit to Main Menu
+
+Press a number or letter key to choose.");
+            var selection = Console.ReadKey(true);
+            switch (selection.Key)
+            {
+                case ConsoleKey.D1:
+                case ConsoleKey.NumPad1:
+                case ConsoleKey.R:
+                    ChangeRoundsPerGame();
+                    break;
+                case ConsoleKey.D2:
+                case ConsoleKey.NumPad2:
+                case ConsoleKey.Q:
+                    return;
+            }
+        }
+    }
+
+    private void ChangeRoundsPerGame()
+    {
+        while (true)
+        {
+            Console.Clear();
+            Console.Write(@$"Rounds per Game
+===============
+
+How many rounds per game? (Currently: {_roundsPerGame}) ");
+            var response = Console.ReadLine();
+            if (int.TryParse(response, out int responseInt) && responseInt > 0)
+            {
+                _roundsPerGame = responseInt;
+                return;
+            }
+            Console.WriteLine("\nPlease enter a positive number.");
+            Console.WriteLine("\nPress any key to continue.");
+            Console.ReadKey(true);
+        }
     }
 }
