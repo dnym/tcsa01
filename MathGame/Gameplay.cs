@@ -17,6 +17,7 @@ internal class Gameplay
     private readonly IOperation _subtraction = new Subtraction();
     private readonly IOperation _multiplication = new Multiplication();
     private readonly IOperation _division = new Division();
+    private readonly IOperation _random = new RandomMode();
 
     public void MainMenu()
     {
@@ -30,8 +31,9 @@ internal class Gameplay
 2. Play [S]ubtraction
 3. Play [M]ultiplication
 4. Play [D]ivision
-5. Show [H]istory
-6. [Q]uit
+5. Play a [R]andom Game
+6. Show [H]istory
+7. [Q]uit
 
 Press a number or letter key to choose.");
             var selection = Console.ReadKey(true);
@@ -59,11 +61,16 @@ Press a number or letter key to choose.");
                     break;
                 case ConsoleKey.D5:
                 case ConsoleKey.NumPad5:
-                case ConsoleKey.H:
-                    ShowHistory();
+                case ConsoleKey.R:
+                    Play(_random);
                     break;
                 case ConsoleKey.D6:
                 case ConsoleKey.NumPad6:
+                case ConsoleKey.H:
+                    ShowHistory();
+                    break;
+                case ConsoleKey.D7:
+                case ConsoleKey.NumPad7:
                 case ConsoleKey.Q:
                     return;
             }
@@ -72,17 +79,23 @@ Press a number or letter key to choose.");
 
     private void Play(IOperation operation)
     {
+        IOperation[] operations = new[] { _addition, _subtraction, _multiplication, _division };
         Game game = new(DateTime.UtcNow, operation);
         for (int i = 0; i < _roundsPerGame; i++)
         {
-            string header = operation.DisplayName + "\n" + new string('=', operation.DisplayName.Length);
-            var (a, b, result) = _roundGenerator.GenerateQuestion(operation);
+            var currentOperation = operation;
+            if (operation == _random)
+            {
+                currentOperation = operations[new Random().Next(0, operations.Length)];
+            }
+            string header = currentOperation.DisplayName + "\n" + new string('=', currentOperation.DisplayName.Length);
+            var (a, b, result) = _roundGenerator.GenerateQuestion(currentOperation);
             string? response = null;
             string warning = "";
             while (response == null)
             {
                 Console.Clear();
-                Console.Write("{0}\n\nRound {1}/{2}: What is {3}? ", header, i+1, _roundsPerGame, string.Format(operation.DisplayPattern, a, b));
+                Console.Write("{0}\n\nRound {1}/{2}: What is {3}? ", header, i+1, _roundsPerGame, string.Format(currentOperation.DisplayPattern, a, b));
                 if (warning != "")
                 {
                     var currentCursorHorizontalPosition = Console.CursorLeft;
@@ -111,7 +124,7 @@ Press a number or letter key to choose.");
                     {
                         Console.WriteLine($"\nThe correct answer is {result}.");
                     }
-                    game.Rounds.Add(new Round(operation, a, b, responseInt));
+                    game.Rounds.Add(new Round(currentOperation, a, b, responseInt));
                     if (i == _roundsPerGame - 1)
                     {
                         Console.WriteLine("\nGame over! You scored {0} out of {1}.",
