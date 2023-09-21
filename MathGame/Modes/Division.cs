@@ -22,6 +22,8 @@ namespace MathGame.Modes
         {
             var (minA, maxA) = domainA;
             var (minB, maxB) = domainB;
+            // According to spec, divisors must be kept non-negative.
+            minA = Math.Max(minA, 0);
             // Compensate for exclusive end.
             maxA--;
             maxB--;
