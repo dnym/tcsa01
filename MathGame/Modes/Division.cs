@@ -120,6 +120,10 @@ namespace MathGame.Modes
                     pairs.Add(new Tuple<int, int>(a, b));
                 }
             }
+            if (pairs.Count == 0)
+            {
+                throw new ArgumentException("The required result cannot be decomposed into two numbers within the given domains.");
+            }
 
             return pairs[rnd.Next(pairs.Count)];
         }
