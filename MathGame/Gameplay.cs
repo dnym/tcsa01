@@ -112,7 +112,9 @@ Press a number or letter key to choose.");
             while (response == null)
             {
                 Console.Clear();
+                var timer = new System.Diagnostics.Stopwatch();
                 Console.Write("{0}\n\nRound {1}/{2}: What is {3}? ", header, i+1, _roundsPerGame, string.Format(currentOperation.DisplayPattern, a, b));
+                timer.Start();
                 if (warning != "")
                 {
                     var currentCursorHorizontalPosition = Console.CursorLeft;
@@ -133,6 +135,7 @@ Press a number or letter key to choose.");
                         Console.WriteLine(new string(' ', Console.WindowWidth));
                         Console.SetCursorPosition(currentCursorHorizontalPosition, currentCursorVerticalPosition);
                     }
+                    timer.Stop();
                     if (responseInt == result)
                     {
                         Console.WriteLine("\nCorrect!");
@@ -141,7 +144,9 @@ Press a number or letter key to choose.");
                     {
                         Console.WriteLine($"\nThe correct answer is {result}.");
                     }
-                    game.Rounds.Add(new Round(currentOperation, a, b, responseInt));
+                    var round = new Round(currentOperation, a, b, responseInt);
+                    round.MillisecondsToAnswer = (int)timer.ElapsedMilliseconds;
+                    game.Rounds.Add(round);
                     if (i == _roundsPerGame - 1)
                     {
                         Console.WriteLine("\nGame over! You scored {0} out of {1}.",
@@ -186,7 +191,8 @@ Press a number or letter key to choose.");
             var time = game.StartTime.ToString("g");
             int correctRounds = game.Rounds.Count(r => r.GivenAnswer == r.Operation.Calculate(r.FirstNumber, r.SecondNumber));
             int totalRounds = game.Rounds.Count;
-            line = string.Format("[{0}] {1} ({2}/{3} correct)", time, game.Operation.DisplayName, correctRounds, totalRounds);
+            double seconds = game.Rounds.Sum(r => r.MillisecondsToAnswer) / 1000.0;
+            line = string.Format("[{0}] {1} ({2}/{3} correct in {4:F1} seconds)", time, game.Operation.DisplayName, correctRounds, totalRounds, seconds);
             lines.Add(line);
             for (int j = 0; j < game.Rounds.Count; j++)
             {
