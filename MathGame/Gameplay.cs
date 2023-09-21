@@ -145,15 +145,19 @@ Press a number or letter key to choose.");
 
     private void ShowHistory()
     {
-        Console.Clear();
-        Console.WriteLine("History\n=======\n");
+        const string header = "History\n=======\n";
+        const string footer = "Press any key to continue.";
+        var maxLines = Console.WindowHeight - 6;
+        var lines = new List<string>();
+        string line;
         for (int i = 0; i < _games.Count; i++)
         {
             var game = _games[i];
             var time = game.StartTime.ToString("g");
             int correctRounds = game.Rounds.Count(r => r.GivenAnswer == r.Operation.Calculate(r.FirstNumber, r.SecondNumber));
             int totalRounds = game.Rounds.Count;
-            Console.WriteLine("[{0}] {1} ({2}/{3} correct)", time, game.Operation.DisplayName, correctRounds, totalRounds);
+            line = string.Format("[{0}] {1} ({2}/{3} correct)", time, game.Operation.DisplayName, correctRounds, totalRounds);
+            lines.Add(line);
             for (int j = 0; j < game.Rounds.Count; j++)
             {
                 var round = game.Rounds[j];
@@ -163,16 +167,42 @@ Press a number or letter key to choose.");
                 var formatted = string.Format(round.Operation.DisplayPattern, a, b);
                 if (round.GivenAnswer == expectedAnswer)
                 {
-                    Console.WriteLine("  {0}) {1}?\tGot {2}.", j+1, formatted, round.GivenAnswer);
+                    line = string.Format("  {0}) {1}?\tGot {2}.", j+1, formatted, round.GivenAnswer);
+                    lines.Add(line);
                 }
                 else
                 {
-                    Console.WriteLine("  {0}) {1}?\tGot {2}, expected {3}.", j+1, formatted, round.GivenAnswer, expectedAnswer);
+                    line = string.Format("  {0}) {1}?\tGot {2}, expected {3}.", j+1, formatted, round.GivenAnswer, expectedAnswer);
+                    lines.Add(line);
                 }
             }
-            Console.WriteLine();
+            lines.Add(string.Empty);
         }
-        Console.WriteLine("Press any key to continue.");
-        Console.ReadKey(true);
+
+        do
+        {
+            Console.Clear();
+            Console.WriteLine(header);
+            var linesToPrint = Math.Min(maxLines, lines.Count);
+            for (int i = 0; i < linesToPrint; i++)
+            {
+                Console.WriteLine(lines[i]);
+            }
+            if (linesToPrint > 1 && !string.IsNullOrWhiteSpace(lines[linesToPrint - 1]))
+            {
+                // Empty line in front of footer.
+                Console.WriteLine();
+            }
+            lines.RemoveRange(0, linesToPrint);
+            if (lines.Count > 0)
+            {
+                Console.WriteLine("Press enter to view more.");
+            }
+            else
+            {
+                Console.WriteLine(footer);
+            }
+            Console.ReadKey(true);
+        } while (lines.Count > 0);
     }
 }
