@@ -11,7 +11,7 @@ namespace MathGame;
 internal class Gameplay
 {
     private const int _roundsPerGame = 5;
-    private readonly RoundGenerator _roundGenerator = new(new Tuple<int, int>(-100, 100), new Tuple<int, int>(-100, 100), new Tuple<int, int>(-100, 100));
+    private readonly RoundGenerator _roundGenerator = new(new Tuple<int, int>(-100, 101), new Tuple<int, int>(-100, 101), new Tuple<int, int>(-100, 101));
     private readonly IList<Game> _games = new List<Game>();
     private readonly IOperation _addition = new Addition();
     private readonly IOperation _subtraction = new Subtraction();
