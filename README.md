@@ -11,7 +11,7 @@ The project is a simple math game that asks the user to solve a math problem. Th
 - Previous games are recorded in a list and may be visualized through the menu.
  
 ### Extra Credit
-- [ ] Levels of difficulty.
+- [x] Levels of difficulty.
 - [ ] Timer to track play time.
 - [x] Allow the user to choose the number of problems to solve.
 - [x] Random Game option which randomly chooses the operations to use.

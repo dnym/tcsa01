@@ -10,14 +10,25 @@ namespace MathGame;
 
 internal class Gameplay
 {
-    private readonly RoundGenerator _roundGenerator = new(new Tuple<int, int>(-100, 101), new Tuple<int, int>(-100, 101), new Tuple<int, int>(-100, 101));
+    private readonly Tuple<Tuple<int, int>, Tuple<int, int>, Tuple<int, int>> _difficulty1 = new(new Tuple<int, int>(-10, 11), new Tuple<int, int>(-10, 11), new Tuple<int, int>(-10, 11));
+    private readonly Tuple<Tuple<int, int>, Tuple<int, int>, Tuple<int, int>> _difficulty2 = new(new Tuple<int, int>(-25, 26), new Tuple<int, int>(-25, 26), new Tuple<int, int>(-25, 26));
+    private readonly Tuple<Tuple<int, int>, Tuple<int, int>, Tuple<int, int>> _difficulty3 = new(new Tuple<int, int>(-50, 51), new Tuple<int, int>(-50, 51), new Tuple<int, int>(-50, 51));
+    private readonly Tuple<Tuple<int, int>, Tuple<int, int>, Tuple<int, int>> _difficulty4 = new(new Tuple<int, int>(-75, 76), new Tuple<int, int>(-75, 76), new Tuple<int, int>(-75, 76));
+    private readonly Tuple<Tuple<int, int>, Tuple<int, int>, Tuple<int, int>> _difficulty5 = new(new Tuple<int, int>(-100, 101), new Tuple<int, int>(-100, 101), new Tuple<int, int>(-100, 101));
     private readonly IList<Game> _games = new List<Game>();
     private readonly IOperation _addition = new Addition();
     private readonly IOperation _subtraction = new Subtraction();
     private readonly IOperation _multiplication = new Multiplication();
     private readonly IOperation _division = new Division();
     private readonly IOperation _random = new RandomMode();
+    private RoundGenerator _roundGenerator;
     private int _roundsPerGame = 5;
+    private int _currentDifficulty = 5;
+
+    public Gameplay()
+    {
+        _roundGenerator = new(_difficulty5.Item1, _difficulty5.Item2, _difficulty5.Item3);
+    }
 
     public void MainMenu()
     {
@@ -234,7 +245,8 @@ Press a number or letter key to choose.");
 ========
 
 1. Change the Number of [R]ounds per Game (Currently: {_roundsPerGame})
-2. [Q]uit to Main Menu
+2. Change the [D]ifficulty (Currently: {_currentDifficulty})
+3. [Q]uit to Main Menu
 
 Press a number or letter key to choose.");
             var selection = Console.ReadKey(true);
@@ -247,6 +259,11 @@ Press a number or letter key to choose.");
                     break;
                 case ConsoleKey.D2:
                 case ConsoleKey.NumPad2:
+                case ConsoleKey.D:
+                    ChangeDifficulty();
+                    break;
+                case ConsoleKey.D3:
+                case ConsoleKey.NumPad3:
                 case ConsoleKey.Q:
                     return;
             }
@@ -269,6 +286,44 @@ How many rounds per game? (Currently: {_roundsPerGame}) ");
                 return;
             }
             Console.WriteLine("\nPlease enter a positive number.");
+            Console.WriteLine("\nPress any key to continue.");
+            Console.ReadKey(true);
+        }
+    }
+
+    private void ChangeDifficulty()
+    {
+        while (true)
+        {
+            Console.Clear();
+            Console.Write(@$"Difficulty
+==========
+
+Which difficulty do you want, from 1 (easy) to 5 (hard)? (Currently: {_currentDifficulty}) ");
+            var response = Console.ReadLine();
+            if (int.TryParse(response, out int responseInt) && responseInt >= 1 && responseInt <= 5)
+            {
+                _currentDifficulty = responseInt;
+                switch (_currentDifficulty)
+                {
+                    case 1:
+                        _roundGenerator = new(_difficulty1.Item1, _difficulty1.Item2, _difficulty1.Item3);
+                        return;
+                    case 2:
+                        _roundGenerator = new(_difficulty2.Item1, _difficulty2.Item2, _difficulty2.Item3);
+                        return;
+                    case 3:
+                        _roundGenerator = new(_difficulty3.Item1, _difficulty3.Item2, _difficulty3.Item3);
+                        return;
+                    case 4:
+                        _roundGenerator = new(_difficulty4.Item1, _difficulty4.Item2, _difficulty4.Item3);
+                        return;
+                    case 5:
+                        _roundGenerator = new(_difficulty5.Item1, _difficulty5.Item2, _difficulty5.Item3);
+                        return;
+                }
+            }
+            Console.WriteLine("\nPlease enter a number between 1 and 5.");
             Console.WriteLine("\nPress any key to continue.");
             Console.ReadKey(true);
         }
