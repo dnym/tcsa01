@@ -6,5 +6,6 @@ internal static class Program
     {
         var game = new Gameplay();
         game.MainMenu();
+        Console.WriteLine("\n\nThanks for playing!");
     }
 }
