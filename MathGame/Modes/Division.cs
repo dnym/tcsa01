@@ -35,72 +35,74 @@ namespace MathGame.Modes
                 maxB--;
             }
 
-            var minQ = 0;
-            var maxQ = 0;
-
-            if (requiredResult % 2 == 0)
+            double minQ, maxQ;
             {
+                var minAd = (double)minA;
+                var maxAd = (double)maxA;
+                var minBd = (double)minB;
+                var maxBd = (double)maxB;
+
                 // Calculate the possible range of quotients.
-                if (minA >= 0 && minB > 0)
+                if (minAd >= 0 && minBd > 0)
                 {
                     // A non-negative, B positive.
-                    minQ = minA / maxB;
-                    maxQ = maxA / minB;
+                    minQ = minAd / maxBd;
+                    maxQ = maxAd / minBd;
                 }
-                else if (maxA < 0 && maxB < 0)
+                else if (maxAd < 0 && maxBd < 0)
                 {
                     // Both negative.
-                    minQ = maxA / minB;
-                    maxQ = minA / maxB;
+                    minQ = maxAd / minBd;
+                    maxQ = minAd / maxBd;
                 }
-                else if (minA >= 0 && maxB < 0)
+                else if (minAd >= 0 && maxBd < 0)
                 {
                     // A non-negative, B negative.
-                    minQ = maxA / maxB;
-                    maxQ = minA / minB;
+                    minQ = maxAd / maxBd;
+                    maxQ = minAd / minBd;
                 }
-                else if (maxA < 0 && minB > 0)
+                else if (maxAd < 0 && minBd > 0)
                 {
                     // A negative, B positive.
-                    minQ = minA / minB;
-                    maxQ = maxA / maxB;
+                    minQ = minAd / minBd;
+                    maxQ = maxAd / maxBd;
                 }
                 else
                 {
                     // One or both are mixed.
-                    if (minA >= 0)
+                    if (minAd >= 0)
                     {
                         // If A is non-negative, B must be mixed and contains -1 and 1.
-                        minQ = maxA / -1;
-                        maxQ = maxA / 1;
+                        minQ = maxAd / -1;
+                        maxQ = maxAd / 1;
                     }
-                    else if (maxA < 0)
+                    else if (maxAd < 0)
                     {
                         // If A is negative, B must be mixed and contains -1 and 1.
-                        minQ = minA / -1;
-                        maxQ = minA / 1;
+                        minQ = minAd / -1;
+                        maxQ = minAd / 1;
                     }
-                    else if (minB > 0)
+                    else if (minBd > 0)
                     {
-                        minQ = minA / minB;
-                        maxQ = maxA / minB;
+                        minQ = minAd / minBd;
+                        maxQ = maxAd / minBd;
                     }
-                    else if (maxB < 0)
+                    else if (maxBd < 0)
                     {
-                        minQ = maxA / maxB;
-                        maxQ = minA / maxB;
+                        minQ = maxAd / maxBd;
+                        maxQ = minAd / maxBd;
                     }
                     else
                     {
                         // Both are mixed, and B must contain both -1 and 1.
-                        var max = Math.Max(Math.Abs(minA), Math.Abs(maxA));
+                        var max = Math.Max(Math.Abs(minAd), Math.Abs(maxAd));
                         minQ = max / -1;
                         maxQ = max / 1;
                     }
                 }
             }
 
-            if (requiredResult % 2 != 0 || requiredResult < minQ || maxQ < requiredResult)
+            if (requiredResult < minQ || maxQ < requiredResult)
             {
                 throw new ArgumentException("The required result cannot be decomposed into two numbers within the given domains.");
             }
