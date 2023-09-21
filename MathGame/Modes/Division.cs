@@ -125,7 +125,13 @@ namespace MathGame.Modes
                 throw new ArgumentException("The required result cannot be decomposed into two numbers within the given domains.");
             }
 
-            return pairs[rnd.Next(pairs.Count)];
+            var pair = pairs[rnd.Next(pairs.Count)];
+            if (pair.Item2 == -1 || pair.Item2 == 1)
+            {
+                // Just an extra "roll" to minimize the occurrence of the trivial case.
+                pair = pairs[rnd.Next(pairs.Count)];
+            }
+            return pair;
         }
     }
 }

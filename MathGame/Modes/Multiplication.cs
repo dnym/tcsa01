@@ -43,6 +43,13 @@ internal class Multiplication : IOperation
         int a = factors.ElementAt(rnd.Next(factors.Count));
         int b = requiredResult / a;
 
+        if (a == 1 || a == -1 || b == 1 || b == -1)
+        {
+            // Just an extra "roll" to minimize the occurrence of the trivial case.
+            a = factors.ElementAt(rnd.Next(factors.Count));
+            b = requiredResult / a;
+        }
+
         return new Tuple<int, int>(a, b);
     }
 }
