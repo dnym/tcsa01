@@ -1,10 +1,5 @@
 ﻿using MathGame.Models;
 using MathGame.Modes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MathGame;
 
@@ -113,7 +108,7 @@ Press a number or letter key to choose.");
             {
                 Console.Clear();
                 var timer = new System.Diagnostics.Stopwatch();
-                Console.Write("{0}\n\nRound {1}/{2}: What is {3}? ", header, i+1, _roundsPerGame, string.Format(currentOperation.DisplayPattern, a, b));
+                Console.Write("{0}\n\nRound {1}/{2}: What is {3}? ", header, i + 1, _roundsPerGame, string.Format(currentOperation.DisplayPattern, a, b));
                 timer.Start();
                 if (warning != "")
                 {
@@ -203,12 +198,12 @@ Press a number or letter key to choose.");
                 var formatted = string.Format(round.Operation.DisplayPattern, a, b);
                 if (round.GivenAnswer == expectedAnswer)
                 {
-                    line = string.Format("  {0}) {1}?\tGot {2}.", j+1, formatted, round.GivenAnswer);
+                    line = string.Format("  {0}) {1}?\tGot {2}.", j + 1, formatted, round.GivenAnswer);
                     lines.Add(line);
                 }
                 else
                 {
-                    line = string.Format("  {0}) {1}?\tGot {2}, expected {3}.", j+1, formatted, round.GivenAnswer, expectedAnswer);
+                    line = string.Format("  {0}) {1}?\tGot {2}, expected {3}.", j + 1, formatted, round.GivenAnswer, expectedAnswer);
                     lines.Add(line);
                 }
             }

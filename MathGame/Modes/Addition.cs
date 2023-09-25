@@ -1,10 +1,4 @@
 ﻿using MathGame.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static MathGame.Models.IOperation;
 
 namespace MathGame.Modes;
 
