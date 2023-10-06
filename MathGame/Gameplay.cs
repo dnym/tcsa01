@@ -5,11 +5,11 @@ namespace MathGame;
 
 internal class Gameplay
 {
-    private readonly Tuple<Tuple<int, int>, Tuple<int, int>, Tuple<int, int>> _difficulty1 = new(new Tuple<int, int>(-10, 11), new Tuple<int, int>(-10, 11), new Tuple<int, int>(-10, 11));
-    private readonly Tuple<Tuple<int, int>, Tuple<int, int>, Tuple<int, int>> _difficulty2 = new(new Tuple<int, int>(-25, 26), new Tuple<int, int>(-25, 26), new Tuple<int, int>(-25, 26));
-    private readonly Tuple<Tuple<int, int>, Tuple<int, int>, Tuple<int, int>> _difficulty3 = new(new Tuple<int, int>(-50, 51), new Tuple<int, int>(-50, 51), new Tuple<int, int>(-50, 51));
-    private readonly Tuple<Tuple<int, int>, Tuple<int, int>, Tuple<int, int>> _difficulty4 = new(new Tuple<int, int>(-75, 76), new Tuple<int, int>(-75, 76), new Tuple<int, int>(-75, 76));
-    private readonly Tuple<Tuple<int, int>, Tuple<int, int>, Tuple<int, int>> _difficulty5 = new(new Tuple<int, int>(-100, 101), new Tuple<int, int>(-100, 101), new Tuple<int, int>(-100, 101));
+    private readonly Difficulty _difficulty1 = new(-10, 11, -10, 11, -10, 11);
+    private readonly Difficulty _difficulty2 = new(-25, 26, -25, 26, -25, 26);
+    private readonly Difficulty _difficulty3 = new(-50, 51, -50, 51, -50, 51);
+    private readonly Difficulty _difficulty4 = new(-75, 76, -75, 76, -75, 76);
+    private readonly Difficulty _difficulty5 = new(-100, 101, -100, 101, -100, 101);
     private readonly IList<Game> _games = new List<Game>();
     private readonly IOperation _addition = new Addition();
     private readonly IOperation _subtraction = new Subtraction();
@@ -22,7 +22,7 @@ internal class Gameplay
 
     public Gameplay()
     {
-        _roundGenerator = new(_difficulty5.Item1, _difficulty5.Item2, _difficulty5.Item3);
+        _roundGenerator = new(_difficulty5);
     }
 
     public void MainMenu()
@@ -308,19 +308,19 @@ Which difficulty do you want, from 1 (easy) to 5 (hard)? (Currently: {_currentDi
                 switch (_currentDifficulty)
                 {
                     case 1:
-                        _roundGenerator = new(_difficulty1.Item1, _difficulty1.Item2, _difficulty1.Item3);
+                        _roundGenerator = new(_difficulty1);
                         return;
                     case 2:
-                        _roundGenerator = new(_difficulty2.Item1, _difficulty2.Item2, _difficulty2.Item3);
+                        _roundGenerator = new(_difficulty2);
                         return;
                     case 3:
-                        _roundGenerator = new(_difficulty3.Item1, _difficulty3.Item2, _difficulty3.Item3);
+                        _roundGenerator = new(_difficulty3);
                         return;
                     case 4:
-                        _roundGenerator = new(_difficulty4.Item1, _difficulty4.Item2, _difficulty4.Item3);
+                        _roundGenerator = new(_difficulty4);
                         return;
                     case 5:
-                        _roundGenerator = new(_difficulty5.Item1, _difficulty5.Item2, _difficulty5.Item3);
+                        _roundGenerator = new(_difficulty5);
                         return;
                 }
             }

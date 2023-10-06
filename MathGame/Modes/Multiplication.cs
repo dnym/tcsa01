@@ -13,16 +13,17 @@ internal class Multiplication : IOperation
         return a * b;
     }
 
-    public Tuple<int, int> DecomposeResult(Random rnd, int requiredResult, Tuple<int, int> domainA, Tuple<int, int> domainB)
+    public Tuple<int, int>? DecomposeResult(Random rnd, int requiredResult, int lowerLimitA, int upperLimitExclusiveA, int lowerLimitB, int upperLimitExclusiveB)
     {
-        var (minA, maxA) = domainA;
-        var (minB, maxB) = domainB;
+        var (minA, maxA) = (lowerLimitA, upperLimitExclusiveA);
+        var (minB, maxB) = (lowerLimitB, upperLimitExclusiveB);
         int minProduct = Math.Min(Math.Min(minA * minB, minA * maxB), Math.Min(maxA * minB, maxA * maxB));
         int maxProduct = Math.Max(Math.Max(minA * minB, minA * maxB), Math.Max(maxA * minB, maxA * maxB));
 
         if (requiredResult < minProduct || maxProduct < requiredResult)
         {
-            throw new ArgumentException("The required result cannot be decomposed into two numbers within the given domains.");
+            // The required result cannot be decomposed into two numbers within the given limits.
+            return null;
         }
 
         HashSet<int> factors = new();

@@ -13,7 +13,7 @@ internal class RandomMode : IOperation
         throw new NotImplementedException();
     }
 
-    public Tuple<int, int> DecomposeResult(Random rnd, int requiredResult, Tuple<int, int> domainA, Tuple<int, int> domainB)
+    public Tuple<int, int> DecomposeResult(Random rnd, int requiredResult, int lowerLimitA, int upperLimitExclusiveA, int lowerLimitB, int upperLimitExclusiveB)
     {
         throw new NotImplementedException();
     }

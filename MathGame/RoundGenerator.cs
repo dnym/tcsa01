@@ -5,31 +5,25 @@ namespace MathGame;
 internal class RoundGenerator
 {
     private readonly Random _random = new();
-    private readonly Tuple<int, int> _domainA;
-    private readonly Tuple<int, int> _domainB;
-    private readonly Tuple<int, int> _range;
+    private readonly Difficulty _difficulty;
 
-    public RoundGenerator(Tuple<int, int> domainA, Tuple<int, int> domainB, Tuple<int, int> range)
+    public RoundGenerator(Difficulty difficulty)
     {
-        _domainA = domainA;
-        _domainB = domainB;
-        _range = range;
+        _difficulty = difficulty;
     }
 
     public Tuple<int, int, int> GenerateQuestion(IOperation operation)
     {
-        while (true)
+        int result = _random.Next(_difficulty.LowerLimitResult, _difficulty.UpperLimitExclusiveResult + 1);
+        Tuple<int, int>? decomposedResult = null;
+        while (decomposedResult == null)
         {
-            try
-            {
-                int result = _random.Next(_range.Item1, _range.Item2 + 1);
-                var (a, b) = operation.DecomposeResult(_random, result, _domainA, _domainB);
-                return new Tuple<int, int, int>(a, b, result);
-            }
-            catch (ArgumentException)
-            {
-                // Ignore.
-            }
+            // Note: bad numbers may lead to an infinite loop. E.g. addition for A and B in [0, 2) = {0, 1} can never produce a result in [4, 6) = {4, 5}.
+            // TODO: Handle this case. Perhaps set a limit on the number of attempts?
+            decomposedResult = operation.DecomposeResult(_random, result,
+                _difficulty.LowerLimitA, _difficulty.UpperLimitExclusiveA,
+                _difficulty.LowerLimitB, _difficulty.UpperLimitExclusiveB);
         }
+        return new Tuple<int, int, int>(decomposedResult.Item1, decomposedResult.Item2, result);
     }
 }

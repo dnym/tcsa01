@@ -13,10 +13,10 @@ namespace MathGame.Modes
             return a / b;
         }
 
-        public Tuple<int, int> DecomposeResult(Random rnd, int requiredResult, Tuple<int, int> domainA, Tuple<int, int> domainB)
+        public Tuple<int, int>? DecomposeResult(Random rnd, int requiredResult, int lowerLimitA, int upperLimitExclusiveA, int lowerLimitB, int upperLimitExclusiveB)
         {
-            var (minA, maxA) = domainA;
-            var (minB, maxB) = domainB;
+            var (minA, maxA) = (lowerLimitA, upperLimitExclusiveA);
+            var (minB, maxB) = (lowerLimitB, upperLimitExclusiveB);
             // According to spec, divisors must be kept non-negative.
             minA = Math.Max(minA, 0);
             // Compensate for exclusive end.
@@ -101,7 +101,8 @@ namespace MathGame.Modes
 
             if (requiredResult < minQ || maxQ < requiredResult)
             {
-                throw new ArgumentException("The required result cannot be decomposed into two numbers within the given domains.");
+                // The required result cannot be decomposed into two numbers within the given limits.
+                return null;
             }
 
             var pairs = new List<Tuple<int, int>>();
@@ -119,7 +120,8 @@ namespace MathGame.Modes
             }
             if (pairs.Count == 0)
             {
-                throw new ArgumentException("The required result cannot be decomposed into two numbers within the given domains.");
+                // The required result cannot be decomposed into two numbers within the given limits.
+                return null;
             }
 
             var pair = pairs[rnd.Next(pairs.Count)];

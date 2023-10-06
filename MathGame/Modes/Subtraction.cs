@@ -13,13 +13,14 @@ internal class Subtraction : IOperation
         return a - b;
     }
 
-    public Tuple<int, int> DecomposeResult(Random rnd, int requiredResult, Tuple<int, int> domainA, Tuple<int, int> domainB)
+    public Tuple<int, int>? DecomposeResult(Random rnd, int requiredResult, int lowerLimitA, int upperLimitExclusiveA, int lowerLimitB, int upperLimitExclusiveB)
     {
-        var (minA, maxA) = domainA;
-        var (minB, maxB) = domainB;
+        var (minA, maxA) = (lowerLimitA, upperLimitExclusiveA);
+        var (minB, maxB) = (lowerLimitB, upperLimitExclusiveB);
         if (requiredResult < minA - maxB || maxA - minB < requiredResult)
         {
-            throw new ArgumentException("The required result cannot be decomposed into two numbers within the given domains.");
+            // The required result cannot be decomposed into two numbers within the given limits.
+            return null;
         }
 
         // Find A within a "subdomain".
